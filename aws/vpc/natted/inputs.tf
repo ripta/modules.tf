@@ -28,19 +28,23 @@ variable "amis" {
 
   # Debian 8 Jessie HVM (2015-06-07-12-27)
   default = {
-    bastion = "ami-818eb7b1"
-    nat = "ami-818eb7b1"
+    ingress = "ami-818eb7b1"
+    egress = "ami-818eb7b1"
   }
 }
 
 variable "instance_types" {
   default = {
-    bastion = "t2.micro"
-    nat = "t2.small"
+    ingress = "t2.micro"
+    egress = "t2.small"
   }
 }
 
-variable "allowed_external_ips" {
-  description = "Comma-delimited (no spaces) list of external IPs allowed to SSH in (default is any and all)"
-  default = "0.0.0.0/0"
+variable "ingress_whitelist_ips" {
+  description = "Comma-delimited (no spaces) list of external IPs allowed to SSH in"
+}
+
+variable "ingress_ssh_port" {
+  description = "The port on `ingress_public_ip` to listen to for SSH"
+  default = "2804"
 }

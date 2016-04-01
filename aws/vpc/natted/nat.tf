@@ -49,8 +49,8 @@ resource "aws_security_group" "nat" {
 }
 
 resource "aws_instance" "nat" {
-  ami = "${lookup(var.amis, "nat")}"
-  instance_type = "${lookup(var.instance_types, "nat")}"
+  ami = "${lookup(var.amis, "egress")}"
+  instance_type = "${lookup(var.instance_types, "egress")}"
   key_name = "${var.key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]

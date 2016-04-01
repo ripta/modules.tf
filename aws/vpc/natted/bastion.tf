@@ -50,8 +50,8 @@ resource "aws_security_group" "bastion" {
 }
 
 resource "aws_instance" "bastion" {
-  ami = "${lookup(var.amis, "bastion")}"
-  instance_type = "${lookup(var.instance_types, "bastion")}"
+  ami = "${lookup(var.amis, "ingress")}"
+  instance_type = "${lookup(var.instance_types, "ingress")}"
   key_name = "${var.key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
