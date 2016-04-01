@@ -1,3 +1,11 @@
+resource "template_file" "bastion" {
+  template = "config/bastion.sh"
+  vars = {
+    # unused, but here to mirror `template_file.nat`
+    vpc_cidr = "${var.cidr}"
+  }
+}
+
 resource "aws_security_group" "bastion" {
   name = "bastion"
   description = "Ingress-only public-facing resources"
@@ -39,4 +47,32 @@ resource "aws_security_group" "bastion" {
     to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_instance" "bastion" {
+  ami = "${lookup(var.amis, "bastion")}"
+  instance_type = "${lookup(var.instance_types, "bastion")}"
+  key_name = "${var.key_name}"
+
+  vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
+  source_dest_check = true
+  subnet_id = "${aws_subnet.public.id}"
+  user_data = "${template_file.bastion.rendered}"
+
+  root_block_device {
+    volume_size = 16
+    volume_type = "gp2"
+  }
+
+  tags {
+    Name = "bastion-01"
+    Scope = "public"
+    Role = "gateway"
+    GatewayType = "ingress"
+  }
+}
+
+resource "aws_eip" "bastion" {
+  instance = "${aws_instance.bastion.id}"
+  vpc = true
 }
