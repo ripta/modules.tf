@@ -59,12 +59,15 @@ resource "aws_instance" "nat" {
   user_data = "${template_file.nat.rendered}"
 
   root_block_device {
-    volume_size = 32
+    volume_size = 16
     volume_type = "gp2"
   }
 
   tags {
     Name = "nat-01"
+    Scope = "public"
+    Role = "gateway"
+    GatewayType = "egress"
   }
 }
 
