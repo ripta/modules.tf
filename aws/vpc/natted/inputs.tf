@@ -1,6 +1,6 @@
 variable "az"   {
-  description = "The qualified name of the AZ, e.g., us-west-2"
-  default = "us-west-2"
+  description = "The qualified name of the AZ, e.g., us-west-2a"
+  default = "us-west-2a"
 }
 
 variable "name" { description = "A descriptive name for the VPC." }
