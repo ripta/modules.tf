@@ -5,6 +5,7 @@ resource "template_file" "nat" {
   }
 }
 
+
 resource "aws_security_group" "nat" {
   name = "nat"
   description = "Public-facing resources"
@@ -14,39 +15,49 @@ resource "aws_security_group" "nat" {
     Name = "nat"
     Scope = "public"
   }
-
-  ingress {
-    protocol = "-1"
-    from_port = 0
-    to_port = 0
-    self = true
-    security_groups = ["${aws_security_group.bastion.id}"]
-  }
-
-  # outgoing, destined to HTTP (tcp/80)
-  egress {
-    protocol = "tcp"
-    from_port = 80
-    to_port = 80
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # outgoing, destined to HTTPS (tcp/443)
-  egress {
-    protocol = "tcp"
-    from_port = 443
-    to_port = 443
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # outgoing ICMP packets
-  egress {
-    protocol = "icmp"
-    from_port = -1
-    to_port = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
+
+resource "aws_security_group_rule" "nat_in_any_bastion" {
+  security_group_id = "${aws_security_group.nat.id}"
+  type = "ingress"
+
+  protocol = "-1"
+  from_port = 0
+  to_port = 0
+  self = true
+  security_groups = ["${aws_security_group.bastion.id}"]
+}
+
+resource "aws_security_group_rule" "nat_out_http_80" {
+  security_group_id = "${aws_security_group.nat.id}"
+  type = "egress"
+
+  protocol = "tcp"
+  from_port = 80
+  to_port = 80
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "nat_out_http_443" {
+  security_group_id = "${aws_security_group.nat.id}"
+  type = "egress"
+
+  protocol = "tcp"
+  from_port = 443
+  to_port = 443
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "nat_out_icmp_all" {
+  security_group_id = "${aws_security_group.nat.id}"
+  type = "egress"
+
+  protocol = "icmp"
+  from_port = -1
+  to_port = -1
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
 
 resource "aws_instance" "nat" {
   ami = "${lookup(var.amis, "egress")}"
