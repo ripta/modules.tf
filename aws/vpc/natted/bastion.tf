@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "bastion_in_ssh_22" {
   cidr_blocks = ["${split(",", var.ingress_whitelist_ips)}"]
 }
 
-resoource "aws_security_group_rule" "bastion_in_ssh_2804" {
+resource "aws_security_group_rule" "bastion_in_ssh_2804" {
   security_group_id = "${aws_security_group.bastion.id}"
   type = "ingress"
 
