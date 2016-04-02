@@ -24,8 +24,17 @@ resource "aws_security_group_rule" "nat_in_any_bastion" {
   protocol = "-1"
   from_port = 0
   to_port = 0
+  source_security_group_id = "${aws_security_group.bastion.id}"
+}
+
+resource "aws_security_group_rule" "nat_in_self" {
+  security_group_id = "${aws_security_group.nat.id}"
+  type = "ingress"
+
+  protocol = "-1"
+  from_port = 0
+  to_port = 0
   self = true
-  source_security_group_id = ["${aws_security_group.bastion.id}"]
 }
 
 resource "aws_security_group_rule" "nat_out_http_80" {
