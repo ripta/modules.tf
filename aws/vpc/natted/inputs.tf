@@ -31,24 +31,30 @@ variable "key_name" {
   type = "string"
 }
 
-variable "amis" {
-  description = "AMIs for each EC2 instance"
-
+variable "ingress_ami" {
+  description = "AMIs for the Ingress EC2 instance (bastion host)"
   # Debian 8 Jessie HVM (2015-06-07-12-27)
-  type = "map"
-  default = {
-    ingress = "ami-818eb7b1"
-    egress = "ami-818eb7b1"
-  }
+  type = "string"
+  default = "ami-818eb7b1"
 }
 
-variable "instance_types" {
-  description = "Instance types for each EC2 instance"
-  type = "map"
-  default = {
-    ingress = "t2.micro"
-    egress = "t2.small"
-  }
+variable "egress_ami" {
+  description = "AMIs for the Egress EC2 instance (NAT)"
+  # Debian 8 Jessie HVM (2015-06-07-12-27)
+  type = "string"
+  default = "ami-818eb7b1"
+}
+
+variable "ingress_instance_type" {
+  description = "Instance types for the Ingress instance (bastion host)"
+  type = "string"
+  default = "t2.micro"
+}
+
+variable "egress_instance_type" {
+  description = "Instance types for the Egress instance (NAT)"
+  type = "string"
+  default = "t2.micro"
 }
 
 variable "ingress_whitelist_ips" {

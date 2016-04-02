@@ -60,8 +60,8 @@ resource "aws_security_group_rule" "nat_out_icmp_all" {
 
 
 resource "aws_instance" "nat" {
-  ami = "${lookup(var.amis, "egress")}"
-  instance_type = "${lookup(var.instance_types, "egress")}"
+  ami = "${egress_ami}"
+  instance_type = "${egress_instance_type}"
   key_name = "${var.key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]

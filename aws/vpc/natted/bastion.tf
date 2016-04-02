@@ -60,8 +60,8 @@ resource "aws_security_group_rule" "bastion_out_any_vpc" {
 
 
 resource "aws_instance" "bastion" {
-  ami = "${lookup(var.amis, "ingress")}"
-  instance_type = "${lookup(var.instance_types, "ingress")}"
+  ami = "${var.ingress_ami}"
+  instance_type = "${var.ingress_instance_type}"
   key_name = "${var.key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
