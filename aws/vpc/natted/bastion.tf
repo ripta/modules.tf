@@ -55,7 +55,7 @@ resource "aws_security_group_rule" "bastion_out_any_vpc" {
   protocol = "-1"
   from_port = 0
   to_port = 0
-  cidr_blocks = ["${var.cidr}"]
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 
