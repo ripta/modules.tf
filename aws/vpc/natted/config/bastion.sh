@@ -18,4 +18,4 @@ else
 fi
 
 sed -i 's/^#\?Port.*/Port 2804/g' /etc/ssh/sshd_config
-service ssh restart
+service sshd restart
