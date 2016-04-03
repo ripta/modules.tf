@@ -1,5 +1,5 @@
 resource "template_file" "bastion" {
-  template = "${file("config/bastion.sh")}"
+  template = "${file("${path.module}/config/bastion.sh")}"
   vars = {
     # unused, but here to mirror `template_file.nat`
     vpc_cidr = "${var.cidr}"
