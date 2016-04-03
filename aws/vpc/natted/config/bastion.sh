@@ -11,6 +11,7 @@ elif [ -n "$(command -v apt-get)" ]
 then
   DEBIAN_FRONTEND=noninteractive apt-get update
 elif [ -n "$(command -v apk)" ]
+then
   apk update
 else
   echo "Warning: could not find a supported package manager" >&2
