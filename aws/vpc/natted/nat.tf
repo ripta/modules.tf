@@ -68,10 +68,17 @@ resource "aws_security_group_rule" "nat_out_icmp_all" {
 }
 
 
+resource "aws_iam_instance_profile" "nat" {
+  name = "${var.name}-nat"
+  roles = ["${aws_iam_role.dmz.name}"]
+}
+
+
 resource "aws_instance" "nat" {
   ami = "${var.egress_ami}"
   instance_type = "${var.egress_instance_type}"
   key_name = "${var.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.nat.name}"
 
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]
   source_dest_check = false

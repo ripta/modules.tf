@@ -63,6 +63,7 @@ resource "aws_instance" "bastion" {
   ami = "${var.ingress_ami}"
   instance_type = "${var.ingress_instance_type}"
   key_name = "${var.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.bastion.name}"
 
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
   source_dest_check = true
