@@ -16,5 +16,5 @@ else
   echo "Warning: could not find a supported package manager" >&2
 fi
 
-sed -i 's/^Port.*/Port 2804/g' /etc/ssh/sshd_config
+sed -i 's/^#\?Port.*/Port 2804/g' /etc/ssh/sshd_config
 service ssh restart
