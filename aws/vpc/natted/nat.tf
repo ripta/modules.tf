@@ -73,7 +73,6 @@ resource "aws_iam_instance_profile" "nat" {
   roles = ["${aws_iam_role.dmz.name}"]
 }
 
-
 resource "aws_instance" "nat" {
   ami = "${var.egress_ami}"
   instance_type = "${var.egress_instance_type}"

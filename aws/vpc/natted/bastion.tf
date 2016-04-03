@@ -59,6 +59,11 @@ resource "aws_security_group_rule" "bastion_out_any_vpc" {
 }
 
 
+resource "aws_iam_instance_profile" "bastion" {
+  name = "${var.name}-bastion"
+  roles = ["${aws_iam_role.dmz.name}"]
+}
+
 resource "aws_instance" "bastion" {
   ami = "${var.ingress_ami}"
   instance_type = "${var.ingress_instance_type}"
