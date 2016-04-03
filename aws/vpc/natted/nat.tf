@@ -1,5 +1,5 @@
 resource "template_file" "nat" {
-  template = "config/nat.sh"
+  template = "${file("config/nat.sh")}"
   vars = {
     vpc_cidr = "${var.cidr}"
   }
