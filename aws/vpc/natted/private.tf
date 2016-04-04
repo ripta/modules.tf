@@ -5,6 +5,7 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = false
 
   tags {
+    Env = "${var.env_name}"
     Name = "${var.name}-private-1"
     Scope = "private"
   }
@@ -13,6 +14,7 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.main.id}"
   tags {
+    Env = "${var.env_name}"
     Name = "${var.name}-private-1"
     Scope = "private"
   }

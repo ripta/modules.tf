@@ -13,6 +13,7 @@ resource "aws_security_group" "nat" {
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
+    Env = "${var.env_name}"
     Name = "nat"
     Scope = "public"
   }
@@ -91,6 +92,7 @@ resource "aws_instance" "nat" {
   }
 
   tags {
+    Env = "${var.env_name}"
     Name = "nat-01"
     Scope = "public"
     Role = "gateway"

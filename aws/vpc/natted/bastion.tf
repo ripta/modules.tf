@@ -14,6 +14,7 @@ resource "aws_security_group" "bastion" {
   vpc_id = "${aws_vpc.main.id}"
 
   tags {
+    Env = "${var.env_name}"
     Name = "bastion"
     Scope = "public"
   }
@@ -82,6 +83,7 @@ resource "aws_instance" "bastion" {
   }
 
   tags {
+    Env = "${var.env_name}"
     Name = "bastion-01"
     Scope = "public"
     Role = "gateway"

@@ -5,6 +5,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = false # require an EIP even on public instances
 
   tags {
+    Env = "${var.env_name}"
     Name = "${var.name}-public-1"
     Scope = "public"
   }
@@ -13,6 +14,7 @@ resource "aws_subnet" "public" {
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.main.id}"
   tags {
+    Env = "${var.env_name}"
     Name = "${var.name}-public-1"
     Scope = "public"
   }

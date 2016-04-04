@@ -1,3 +1,8 @@
+variable "env_name" {
+  description = "A short textual name for the environment"
+  type = "string"
+}
+
 variable "az"   {
   description = "The qualified name of the AZ, e.g., us-west-2a"
   type = "string"
