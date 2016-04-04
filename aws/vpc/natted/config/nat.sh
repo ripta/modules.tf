@@ -24,3 +24,5 @@ sed -i 's/^#\?net.ipv6.conf.all.forwarding.*/net.ipv6.conf.all.forwarding = 1/g'
 sysctl -p /etc/sysctl.conf
 
 iptables -t nat -A POSTROUTING -o eth0 -s ${vpc_cidr} -j MASQUERADE
+
+${postscript}

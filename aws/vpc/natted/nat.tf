@@ -1,6 +1,7 @@
 resource "template_file" "nat" {
   template = "${file("${path.module}/config/nat.sh")}"
   vars = {
+    postscript = "${var.nat_setup_script}"
     vpc_cidr = "${var.cidr}"
   }
 }

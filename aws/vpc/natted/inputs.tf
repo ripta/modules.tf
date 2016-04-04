@@ -67,3 +67,15 @@ variable "ingress_ssh_port" {
   type = "string"
   default = "2804"
 }
+
+variable "nat_setup_script" {
+  description = "(optional) setup script on first boot of NAT"
+  type = "string"
+  default = ""
+}
+
+variable "bastion_setup_script" {
+  description = "(optional) setup script on first boot of bastion"
+  type = "string"
+  default = ""
+}

@@ -19,3 +19,5 @@ fi
 
 sed -i 's/^#\?Port.*/Port 2804/g' /etc/ssh/sshd_config
 service sshd restart
+
+${postscript}
