@@ -32,6 +32,11 @@ resource "aws_iam_policy" "ec2_describe_az" {
       "Effect": "Allow",
       "Action": "ec2:DescribeRegions",
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:DescribeTags",
+      "Resource": "*"
     }
   ]
 }
