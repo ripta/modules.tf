@@ -86,7 +86,7 @@ resource "aws_instance" "bastion" {
     Env = "${var.env_name}"
     Name = "bastion-01"
     Scope = "public"
-    Role = "gateway"
+    Roles = "bastion,gateway"
     GatewayType = "ingress"
   }
 }
