@@ -76,6 +76,8 @@ resource "aws_iam_instance_profile" "nat" {
 }
 
 resource "aws_instance" "nat" {
+  count = "${var.nat_count}"
+
   ami = "${var.egress_ami}"
   instance_type = "${var.egress_instance_type}"
   key_name = "${var.key_name}"
@@ -83,7 +85,7 @@ resource "aws_instance" "nat" {
 
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]
   source_dest_check = false
-  subnet_id = "${aws_subnet.public.id}"
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   user_data = "${data.template_file.nat.rendered}"
 
   root_block_device {
@@ -93,7 +95,7 @@ resource "aws_instance" "nat" {
 
   tags {
     Env = "${var.env_name}"
-    Name = "nat-01"
+    Name = "${format("nat-%02d", count.index + 1)}"
     Scope = "public"
     Roles = "gateway,nat"
     GatewayType = "egress"
@@ -101,6 +103,7 @@ resource "aws_instance" "nat" {
 }
 
 resource "aws_eip" "nat" {
-  instance = "${aws_instance.nat.id}"
+  count = "${var.nat_count}"
+  instance = "${element(aws_instance.nat.*.id, count.index)}"
   vpc = true
 }

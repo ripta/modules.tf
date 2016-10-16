@@ -3,10 +3,10 @@ variable "env_name" {
   type = "string"
 }
 
-variable "az"   {
-  description = "The qualified name of the AZ, e.g., us-west-2a"
-  type = "string"
-  default = "us-west-2a"
+variable "azs" {
+  description = "List of qualified name of the AZs"
+  type = "list"
+  default = ["us-west-2a"]
 }
 
 variable "name" {
@@ -20,15 +20,15 @@ variable "cidr" {
   default = "172.28.0.0/16"
 }
 
-variable "private_cidr" {
-  description = "The IP space for the private subnet; must be contained in the VPC IP space (`cidr` above)."
-  type = "string"
-  default = "172.28.16.0/20"
+variable "private_cidrs" {
+  description = "List of the IP space for the private subnets; must be contained in the VPC IP space (`cidr` above)."
+  type = "list"
+  default = ["172.28.16.0/20"]
 }
-variable "public_cidr" {
-  description = "The IP space for the public subnet; must be contained in the VPC IP space (`cidr` above)."
-  type = "string"
-  default = "172.28.0.0/20"
+variable "public_cidrs" {
+  description = "List of the IP space for the public subnets; must be contained in the VPC IP space (`cidr` above)."
+  type = "list"
+  default = ["172.28.0.0/20"]
 }
 
 variable "key_name" {
@@ -73,10 +73,20 @@ variable "ingress_ssh_port" {
   default = "2804"
 }
 
+variable "nat_count" {
+  description = "Number of NAT instances"
+  default = 1
+}
+
 variable "nat_setup_script" {
   description = "(optional) setup script on first boot of NAT"
   type = "string"
   default = ""
+}
+
+variable "bastion_count" {
+  description = "Number of Bastion instances"
+  default = 1
 }
 
 variable "bastion_setup_script" {

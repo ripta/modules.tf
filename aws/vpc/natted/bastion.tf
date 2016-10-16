@@ -67,6 +67,8 @@ resource "aws_iam_instance_profile" "bastion" {
 }
 
 resource "aws_instance" "bastion" {
+  count = "${var.bastion_count}"
+
   ami = "${var.ingress_ami}"
   instance_type = "${var.ingress_instance_type}"
   key_name = "${var.key_name}"
@@ -74,7 +76,7 @@ resource "aws_instance" "bastion" {
 
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
   source_dest_check = true
-  subnet_id = "${aws_subnet.public.id}"
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   user_data = "${data.template_file.bastion.rendered}"
 
   root_block_device {
@@ -84,7 +86,7 @@ resource "aws_instance" "bastion" {
 
   tags {
     Env = "${var.env_name}"
-    Name = "bastion-01"
+    Name = "${format("bastion-%02d", count.index + 1)}"
     Scope = "public"
     Roles = "bastion,gateway"
     GatewayType = "ingress"
@@ -93,6 +95,7 @@ resource "aws_instance" "bastion" {
 
 
 resource "aws_eip" "bastion" {
-  instance = "${aws_instance.bastion.id}"
+  count = "${var.bastion_count}"
+  instance = "${element(aws_instance.bastion.*.id, count.index)}"
   vpc = true
 }
