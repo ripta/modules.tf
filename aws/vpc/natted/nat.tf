@@ -1,4 +1,4 @@
-resource "template_file" "nat" {
+data "template_file" "nat" {
   template = "${file("${path.module}/config/nat.sh")}"
   vars = {
     postscript = "${var.nat_setup_script}"
@@ -84,7 +84,7 @@ resource "aws_instance" "nat" {
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]
   source_dest_check = false
   subnet_id = "${aws_subnet.public.id}"
-  user_data = "${template_file.nat.rendered}"
+  user_data = "${data.template_file.nat.rendered}"
 
   root_block_device {
     volume_size = 16

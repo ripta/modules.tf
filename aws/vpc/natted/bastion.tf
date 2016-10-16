@@ -1,4 +1,4 @@
-resource "template_file" "bastion" {
+data "template_file" "bastion" {
   template = "${file("${path.module}/config/bastion.sh")}"
   vars = {
     postscript = "${var.bastion_setup_script}"
@@ -75,7 +75,7 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids = ["${aws_security_group.bastion.id}"]
   source_dest_check = true
   subnet_id = "${aws_subnet.public.id}"
-  user_data = "${template_file.bastion.rendered}"
+  user_data = "${data.template_file.bastion.rendered}"
 
   root_block_device {
     volume_size = 16
