@@ -96,7 +96,7 @@ resource "aws_instance" "nat" {
     Env         = "${var.env_name}"
     Name        = "${format("nat-%02d", count.index + 1)}"
     Scope       = "public"
-    Roles       = "gateway,nat"
+    ServerClass = "gateway"
     GatewayType = "egress"
   }
 }
