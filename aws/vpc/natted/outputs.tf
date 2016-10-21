@@ -23,11 +23,11 @@ output "public_route_id" {
 }
 
 output "ingress_sg_id" {
-  value = ["${aws_security_group.bastion.id}"]
+  value = "${aws_security_group.bastion.id}"
 }
 
 output "egress_sg_id" {
-  value = ["${aws_security_group.nat.id}"]
+  value = "${aws_security_group.nat.id}"
 }
 
 output "bastion_private_ip" {
