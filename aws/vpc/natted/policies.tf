@@ -1,19 +1,22 @@
+data "aws_iam_policy_document" "ec2_trust_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "ec2.amazonaws.com",
+      ]
+    }
+  }
+}
+
 resource "aws_iam_role" "dmz" {
   name = "${var.name}-dmz"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      }
-    }
-  ]
-}
-EOF
+  assume_role_policy = "${data.aws_iam_policy_document.ec2_trust_policy.json}"
 }
 
 resource "aws_iam_policy" "ec2_describe_az" {
