@@ -20,6 +20,12 @@ variable "cidr" {
   default     = "172.28.0.0/16"
 }
 
+variable "dns_root" {
+  description = "The DNS root for internal name resoltion"
+  type        = "string"
+  default     = "compute.internal"
+}
+
 variable "private_cidrs" {
   description = "List of the IP space for the private subnets; must be contained in the VPC IP space (`cidr` above)."
   type        = "list"

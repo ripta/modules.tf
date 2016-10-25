@@ -9,6 +9,16 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_vpc_dhcp_options" "main" {
+  domain_name = "${var.dns_root}"
+  domain_name_servers = ["AmazonProvidedDNS"]
+}
+
+resource "aws_vpc_dhcp_options_association" "resolver" {
+  vpc_id = "${aws_vpc.main.id}"
+  dhcp_options_id = "${aws_vpc_dhcp_options.main.id}"
+}
+
 resource "aws_internet_gateway" "main" {
   vpc_id = "${aws_vpc.main.id}"
 
