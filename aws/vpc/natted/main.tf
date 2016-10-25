@@ -12,6 +12,10 @@ resource "aws_vpc" "main" {
 resource "aws_vpc_dhcp_options" "main" {
   domain_name = "${var.dns_root}"
   domain_name_servers = ["AmazonProvidedDNS"]
+
+  tags {
+    Name = "${var.dns_root}"
+  }
 }
 
 resource "aws_vpc_dhcp_options_association" "resolver" {
