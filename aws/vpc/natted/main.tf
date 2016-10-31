@@ -6,6 +6,7 @@ resource "aws_vpc" "main" {
   tags {
     Env  = "${var.env_name}"
     Name = "${var.name}"
+    DnsRoot = "${var.dns_root}"
   }
 }
 
