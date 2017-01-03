@@ -11,7 +11,6 @@ resource "aws_subnet" "set" {
     Name    = "${var.name}-${count.index + 1}"
     Scope   = "${var.scope}"
     Segment = "${var.segment}"
-    "${var.env}" = "${var.env}"
   }
 }
 
