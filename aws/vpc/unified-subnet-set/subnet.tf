@@ -11,6 +11,7 @@ resource "aws_subnet" "set" {
     Name    = "${var.name}-${count.index + 1}"
     Scope   = "${var.scope}"
     Segment = "${var.segment}"
+    KubernetesCluster = "${lookup(var.custom_tags, "KubernetesCluster")}"
   }
 }
 
