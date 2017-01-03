@@ -1,5 +1,5 @@
-output "route_tables" {
-  value = ["${aws_route_table.set.*.id}"]
+output "route_table" {
+  value = "${aws_route_table.set.id}"
 }
 
 output "subnets" {
