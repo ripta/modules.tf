@@ -13,3 +13,8 @@ variable "azs" {
   description = "List of AZs"
   type = "list"
 }
+
+variable "custom_tags" {
+  description = "Custom tags"
+  type = "map"
+}
