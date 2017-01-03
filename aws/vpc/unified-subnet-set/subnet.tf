@@ -23,6 +23,7 @@ resource "aws_route_table" "set" {
     Name    = "${var.name}"
     Scope   = "${var.scope}"
     Segment = "${var.segment}"
+    KubernetesCluster = "${lookup(var.custom_tags, "KubernetesCluster")}"
   }
 }
 
