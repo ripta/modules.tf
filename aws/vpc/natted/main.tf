@@ -18,6 +18,8 @@ resource "aws_vpc_dhcp_options" "main" {
 
   tags {
     Name = "${var.dns_root}"
+    InternalName = "${var.internal_dns_root}"
+    ExternalName = "${var.external_dns_root}"
   }
 }
 
