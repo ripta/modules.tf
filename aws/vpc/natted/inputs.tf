@@ -21,9 +21,21 @@ variable "cidr" {
 }
 
 variable "dns_root" {
-  description = "The DNS root for internal name resoltion"
+  description = "The DNS root for internal name resolution (deprecated, see internal_dns_root)"
   type        = "string"
   default     = "compute.internal"
+}
+
+variable "internal_dns_root" {
+  description = "The DNS root for internal name resolution"
+  type        = "string"
+  default     = "compute.internal"
+}
+
+variable "external_dns_root" {
+  description = "The DNS root for external name resolution (optional)"
+  type        = "string"
+  default     = ""
 }
 
 variable "private_cidrs" {

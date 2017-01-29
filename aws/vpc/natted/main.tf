@@ -7,6 +7,8 @@ resource "aws_vpc" "main" {
     Env  = "${var.env_name}"
     Name = "${var.name}"
     DnsRoot = "${var.dns_root}"
+    InternalDnsRoot = "${var.internal_dns_root}"
+    ExternalDnsRoot = "${var.external_dns_root}"
   }
 }
 
